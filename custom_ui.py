@@ -73,7 +73,7 @@ class ProgramItem:
         self.last_duration_percent = (last_duration * 100) // duration
         self.elem_list = []
         self.canvas = Canvas(self.master, width=self.width, height=self.height, bg=self.bg, highlightthickness=0)
-        self.canvas.pack()
+        self.canvas.place(x=0, y=0)
         self.elem_list.append(self.canvas)
 
         self.container = CustomLabelFrame(self.canvas, width=self.width, height=self.height, bg=interface.ACCENT,

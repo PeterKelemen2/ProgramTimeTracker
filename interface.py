@@ -46,21 +46,19 @@ class App:
             if self.scroll_canvas.yview()[0] > 0.0:
                 self.scroll_canvas.yview_scroll(-1, "units")
 
-    def on_canvas_configure(self, event):
-        # Update the canvas scroll region
-        self.scroll_canvas.config(scrollregion=self.scroll_canvas.bbox("all"))
-
     def create_container(self):
+        style = ttk.Style()
+        style.configure("Custom.TFrame", background=ACCENT)
         self.round_container = custom_ui.CustomLabelFrame(self.win, width=WIN_WIDTH - 20, height=WIN_HEIGHT - 100,
                                                           bg=BG,
                                                           fill=ACCENT)
         self.round_container.canvas.place(x=10, y=10)
 
-        self.container = ttk.Frame(self.container)
+        self.container = ttk.Frame(self.win, style="Custom.TFrame")
         self.scroll_canvas = tk.Canvas(self.container, width=WIN_WIDTH - 20, height=WIN_HEIGHT - 120,
                                        highlightthickness=0, bg=ACCENT)
         self.scrollbar = ttk.Scrollbar(self.container, orient=tk.VERTICAL, command=self.scroll_canvas.yview)
-        self.scrollable_frame = ttk.Frame(self.scroll_canvas)
+        self.scrollable_frame = ttk.Frame(self.scroll_canvas, style="Custom.TFrame")
         self.scrollable_frame.bind("<Configure>",
                                    lambda e: self.scroll_canvas.configure(scrollregion=self.scroll_canvas.bbox("all")))
         self.scroll_canvas.create_window((0, 0), window=self.scrollable_frame, anchor="nw")
@@ -81,12 +79,13 @@ class App:
                                       icon_path=entry["icon_path"],
                                       last_duration=entry["last_duration"],
                                       count=entry["count"]))
-            self.programs_list[-1].canvas.pack(padx=10, pady=(0, 10))
+            self.programs_list[-1].canvas.pack(pady=(0, 10))
             count += 1
 
-        self.container.pack(pady=20, fill="x")
+        self.container.pack(padx=20, pady=20, fill="x")
         self.scroll_canvas.pack(side="left", fill="both", expand=True)
         self.scrollbar.pack(side="right", fill="y")
+        self.scrollbar.pack_forget()
 
         # self.entries = json_handler.load_programs()
         # self.total_time = sum(entry['duration'] for entry in self.entries)
