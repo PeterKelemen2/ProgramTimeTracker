@@ -1,8 +1,12 @@
 import tkinter as tk
 from tkinter import ttk
+
+
 import custom_ui
 import json_handler
 import time_converter
+import PIL.ImageOps
+from PIL import Image, ImageTk, ImageDraw
 
 ui = None
 programs = json_handler.load_programs()
@@ -11,7 +15,7 @@ WIN_WIDTH = 700
 WIN_HEIGHT = 700
 BG = "#202331"
 ACCENT = "#303754"
-fallout3_icon = "icons/fallout3.png"
+# img = "assets/gradient.png"
 
 
 class App:
@@ -27,9 +31,24 @@ class App:
         self.scroll_frame = None
         self.win = None
         self.create_window()
+        # self.gradient_image = ImageTk.PhotoImage(PIL.Image.open(img).resize((WIN_WIDTH - 40, 50)))
+        # self.gradient_image = ImageTk.PhotoImage(PIL.Image.open(img).resize((WIN_WIDTH - 40, 50)))
+        # self.new_canvas = tk.Canvas(self.win, width=WIN_WIDTH - 40, height=50)
+        # self.g_img = self.new_canvas.create_image(0, 0, image=self.gradient_image)
         self.create_scrollable_area()
         # self.create_entries()
         self.win.mainloop()
+
+    def create_gradients(self):
+        self.gradient_img = Image.new('RGBA', (WIN_WIDTH - 40, 50))
+        self.draw = ImageDraw.Draw(self.gradient_img)
+        for y in range(self.gradient_img.height):
+            opacity = int(255 * (1 - y / self.gradient_img.height))  # Calculate opacity for each y-coordinate
+            self.draw.line((0, y, self.gradient_img.width, y), fill=(48, 55, 84, opacity))
+
+        # Convert the gradient image to a Tkinter-compatible format
+        self.gradient_photo = ImageTk.PhotoImage(self.gradient_img)
+        return self.gradient_photo
 
     def create_window(self):
         self.win = tk.Tk()
@@ -94,6 +113,9 @@ class App:
         self.scroll_canvas.pack(side="left", fill="both", expand=True)
         self.scrollbar.pack(side="right", fill="y")
         self.scrollbar.pack_forget()
+
+        self.grad = tk.Label(self.win, image=self.create_gradients(), borderwidth=0)
+        self.grad.place(x=20, y=20)
 
     # def create_entries(self):
     #     self.entries = json_handler.load_programs()
