@@ -16,6 +16,8 @@ fallout3_icon = "icons/fallout3.png"
 
 class App:
     def __init__(self):
+        self.scrollable_frame = None
+        self.round_container = None
         self.entries = None
         self.total_time = None
         self.programs = []
@@ -25,7 +27,7 @@ class App:
         self.scroll_frame = None
         self.win = None
         self.create_window()
-        self.create_container()
+        self.create_scrollable_area()
         # self.create_entries()
         self.win.mainloop()
 
@@ -46,13 +48,14 @@ class App:
             if self.scroll_canvas.yview()[0] > 0.0:
                 self.scroll_canvas.yview_scroll(-1, "units")
 
-    def create_container(self):
+    def create_scrollable_area(self):
         style = ttk.Style()
         style.configure("Custom.TFrame", background=ACCENT)
         self.round_container = custom_ui.CustomLabelFrame(self.win, width=WIN_WIDTH - 20, height=WIN_HEIGHT - 100,
                                                           bg=BG,
                                                           fill=ACCENT)
         self.round_container.canvas.place(x=10, y=10)
+        self.round_container.canvas.bind("<MouseWheel>", self.on_mousewheel)
 
         self.container = ttk.Frame(self.win, style="Custom.TFrame")
         self.scroll_canvas = tk.Canvas(self.container, width=WIN_WIDTH - 20, height=WIN_HEIGHT - 120,
@@ -65,6 +68,7 @@ class App:
         self.scroll_canvas.config(yscrollcommand=self.scrollbar.set)
 
         self.scroll_canvas.bind("<MouseWheel>", self.on_mousewheel)
+        self.scrollable_frame.bind("<MouseWheel>", self.on_mousewheel)
 
         self.entries = json_handler.load_programs()
         self.total_time = sum(entry['duration'] for entry in self.entries)
@@ -91,72 +95,24 @@ class App:
         self.scrollbar.pack(side="right", fill="y")
         self.scrollbar.pack_forget()
 
-        # self.entries = json_handler.load_programs()
-        # self.total_time = sum(entry['duration'] for entry in self.entries)
-        # custom_ui.total_time = self.total_time
-        # self.programs_list = []
-        # padding = 20
-        # entry_height = 100
-        # count = 0
-        # for entry in self.entries:
-        #     self.programs_list.append(
-        #         custom_ui.ProgramItem(self.scroll_frame, width=WIN_WIDTH - 40, height=entry_height, fill=ACCENT,
-        #                               name=entry["name"],
-        #                               duration=entry["duration"],
-        #                               icon_path=entry["icon_path"],
-        #                               last_duration=entry["last_duration"],
-        #                               count=entry["count"]))
-        #     self.programs_list[-1].canvas.place(x=0, y=count * (entry_height + padding))
-        #     self.programs_list[-1].canvas.bind("<MouseWheel>", self.on_mousewheel)
-        #     for elem in self.programs_list[-1].elem_list:
-        #         elem.bind("<MouseWheel>", self.on_mousewheel)
-        #     count += 1
-        # self.scroll_frame.update_idletasks()
-        # self.scroll_canvas.config(scrollregion=self.scroll_canvas.bbox("all"))
-
-        # Create container frame
-        # self.container = custom_ui.CustomLabelFrame(self.win, width=WIN_WIDTH - 20, height=WIN_HEIGHT - 100, bg=BG,
-        #                                             fill=ACCENT)
-        # self.container.canvas.place(x=10, y=10)
-
-        # Create canvas for scrolling
-        # self.scroll_canvas = tk.Canvas(self.container.canvas, width=WIN_WIDTH - 40, height=WIN_HEIGHT - 120, bg="white",
-        #                                highlightthickness=0)
-        # self.scroll_canvas.pack(padx=10, pady=10, side="left", fill="both", expand=True)
-        #
-        # # Create scrollbar
-        # self.scrollbar = tk.Scrollbar(self.container.canvas, orient="vertical", command=self.scroll_canvas.yview,
-        #                               width=5)
-        # self.scrollbar.pack(side="right", fill="y")
-        #
-        # # Configure canvas scrolling
-        # self.scroll_canvas.configure(yscrollcommand=self.scrollbar.set)
-        #
-        # # Create scrollable frame
-        # self.scroll_frame = tk.Frame(self.scroll_canvas, bg="black")
-        # self.scroll_canvas.create_window((0, 0), window=self.scroll_frame, anchor="nw")
-        #
-        # # Bind mouse wheel event
-        # self.scroll_canvas.bind("<MouseWheel>", self.on_mousewheel)
-
-    def create_entries(self):
-        self.entries = json_handler.load_programs()
-        self.total_time = sum(entry['duration'] for entry in self.entries)
-        custom_ui.total_time = self.total_time
-        self.programs_list = []
-        padding = 20
-        entry_height = 100
-        count = 0
-        for entry in self.entries:
-            self.programs_list.append(
-                custom_ui.ProgramItem(self.scroll_frame, width=640, height=entry_height, fill=ACCENT,
-                                      name=entry["name"],
-                                      duration=entry["duration"],
-                                      icon_path=entry["icon_path"],
-                                      last_duration=entry["last_duration"],
-                                      count=entry["count"]))
-            self.programs_list[-1].canvas.place(x=10, y=padding + count * (entry_height + padding))
-            self.programs_list[-1].canvas.bind("<MouseWheel>", self.on_mousewheel)
-            count += 1
-        self.scroll_frame.update_idletasks()
-        self.scroll_canvas.config(scrollregion=self.scroll_canvas.bbox("all"))
+    # def create_entries(self):
+    #     self.entries = json_handler.load_programs()
+    #     self.total_time = sum(entry['duration'] for entry in self.entries)
+    #     custom_ui.total_time = self.total_time
+    #     self.programs_list = []
+    #     padding = 20
+    #     entry_height = 100
+    #     count = 0
+    #     for entry in self.entries:
+    #         self.programs_list.append(
+    #             custom_ui.ProgramItem(self.scroll_frame, width=640, height=entry_height, fill=ACCENT,
+    #                                   name=entry["name"],
+    #                                   duration=entry["duration"],
+    #                                   icon_path=entry["icon_path"],
+    #                                   last_duration=entry["last_duration"],
+    #                                   count=entry["count"]))
+    #         self.programs_list[-1].canvas.place(x=10, y=padding + count * (entry_height + padding))
+    #         self.programs_list[-1].canvas.bind("<MouseWheel>", self.on_mousewheel)
+    #         count += 1
+    #     self.scroll_frame.update_idletasks()
+    #     self.scroll_canvas.config(scrollregion=self.scroll_canvas.bbox("all"))

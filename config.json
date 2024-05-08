@@ -16,12 +16,12 @@
     "count": 2
   },
   {
-    "name": "Minecraft",
+    "name": "Fallout 3",
     "path": "path/to/game.exe",
-    "icon_path": "icons/minecraft.png",
-    "duration": 1000,
-    "last_duration": 250,
-    "count": 2
+    "icon_path": "icons/fallout3.png",
+    "duration": 10000,
+    "last_duration": 5000,
+    "count": 4
   },
   {
     "name": "Minecraft",
@@ -32,12 +32,12 @@
     "count": 2
   },
   {
-    "name": "Minecraft",
+    "name": "Fallout 3",
     "path": "path/to/game.exe",
-    "icon_path": "icons/minecraft.png",
-    "duration": 1000,
-    "last_duration": 250,
-    "count": 2
+    "icon_path": "icons/fallout3.png",
+    "duration": 10000,
+    "last_duration": 5000,
+    "count": 4
   },
   {
     "name": "Minecraft",
@@ -48,12 +48,12 @@
     "count": 2
   },
   {
-    "name": "Minecraft",
+    "name": "Fallout 3",
     "path": "path/to/game.exe",
-    "icon_path": "icons/minecraft.png",
-    "duration": 1000,
-    "last_duration": 250,
-    "count": 2
+    "icon_path": "icons/fallout3.png",
+    "duration": 10000,
+    "last_duration": 5000,
+    "count": 4
   },
   {
     "name": "Minecraft",
@@ -62,6 +62,30 @@
     "duration": 1000,
     "last_duration": 250,
     "count": 2
+  },
+  {
+    "name": "Fallout 3",
+    "path": "path/to/game.exe",
+    "icon_path": "icons/fallout3.png",
+    "duration": 10000,
+    "last_duration": 5000,
+    "count": 4
+  },
+  {
+    "name": "Minecraft",
+    "path": "path/to/game.exe",
+    "icon_path": "icons/minecraft.png",
+    "duration": 1000,
+    "last_duration": 250,
+    "count": 2
+  },
+  {
+    "name": "Fallout 3",
+    "path": "path/to/game.exe",
+    "icon_path": "icons/fallout3.png",
+    "duration": 10000,
+    "last_duration": 5000,
+    "count": 4
   },
   {
     "name": "Minecraft",
