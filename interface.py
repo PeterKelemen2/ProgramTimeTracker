@@ -64,6 +64,8 @@ class App:
         self.scroll_canvas.create_window((0, 0), window=self.scrollable_frame, anchor="nw")
         self.scroll_canvas.config(yscrollcommand=self.scrollbar.set)
 
+        self.scroll_canvas.bind("<MouseWheel>", self.on_mousewheel)
+
         self.entries = json_handler.load_programs()
         self.total_time = sum(entry['duration'] for entry in self.entries)
         custom_ui.total_time = self.total_time
@@ -81,6 +83,8 @@ class App:
                                       count=entry["count"]))
             self.programs_list[-1].canvas.pack(pady=(0, 10))
             count += 1
+            for elem in self.programs_list[-1].elem_list:
+                elem.bind("<MouseWheel>", self.on_mousewheel)
 
         self.container.pack(padx=20, pady=20, fill="x")
         self.scroll_canvas.pack(side="left", fill="both", expand=True)
