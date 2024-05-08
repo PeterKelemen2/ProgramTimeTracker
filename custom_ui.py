@@ -68,31 +68,32 @@ class ProgramItem:
         self.last_duration_hours = time_converter.convert_seconds(self.last_duration)
         self.count = count
 
-        # total_dur = 10000
         duration_width = 110
         self.duration_percent = (duration * 100) // total_time
         self.last_duration_percent = (last_duration * 100) // duration
-
+        self.elem_list = []
         self.canvas = Canvas(self.master, width=self.width, height=self.height, bg=self.bg, highlightthickness=0)
         self.canvas.pack()
+        self.elem_list.append(self.canvas)
 
         self.container = CustomLabelFrame(self.canvas, width=self.width, height=self.height, bg=interface.ACCENT,
                                           fill=interface.BG)
         self.container.canvas.place(x=0, y=0)
+        self.elem_list.append(self.container.canvas)
 
-        self.text_list = []
         self.unit_list = []
 
-        # self.icon_img = Image.open(fallout3_icon)
         self.icon_photo = ImageTk.PhotoImage(PIL.Image.open(icon_path).resize((50, 50)))
         self.icon_label = tkinter.Label(self.container.canvas, bg=self.bg, image=self.icon_photo)
         self.unit_list.append(self.icon_label)
-        # self.icon_label.place(x=10, y=30)
+        self.elem_list.append(self.icon_label)
 
         self.text_list = []
         self.name_title = tkinter.Label(self.container.canvas, text="Name", font=BOLD_FONT, bg=self.bg, fg="white")
         self.name_text = tkinter.Label(self.container.canvas, text=self.name, bg=self.bg, font=FONT, fg="white")
         self.unit_list.append([self.name_title, self.name_text])
+        self.elem_list.append(self.name_text)
+        self.elem_list.append(self.name_title)
 
         self.duration_title = tkinter.Label(self.container.canvas, text="Total duration", bg=self.bg, font=BOLD_FONT,
                                             fg="white")
@@ -102,34 +103,37 @@ class ProgramItem:
                                              radius=8,
                                              bg=self.bg, bar_bg_accent="#6AB187", pr_bar="#73ff7b")
         self.duration_pb.set_percentage(self.duration_percent)
-        # self.duration_pb.canvas.place(x=169, y=65)
         self.unit_list.append([self.duration_title, self.duration_text, self.duration_pb])
+        self.elem_list.append(self.duration_title)
+        self.elem_list.append(self.duration_text)
+        self.elem_list.append(self.duration_pb.progress_bar_bg.canvas)
+        self.elem_list.append(self.duration_pb.progress_bar_fg.canvas)
 
         self.last_duration_title = tkinter.Label(self.container.canvas, text="Last duration", bg=self.bg,
                                                  font=BOLD_FONT, fg="white")
         self.last_duration_text = tkinter.Label(self.container.canvas, text=self.last_duration_hours, bg=self.bg,
                                                 font=FONT,
                                                 fg="white")
-        self.text_list.append(self.last_duration_text)
         self.last_duration_pb = CustomProgressBar(self.container.canvas, width=duration_width, height=22, padding=4,
                                                   radius=8, bg=self.bg, bar_bg_accent="#6AB187", pr_bar="#73ff7b")
         self.last_duration_pb.set_percentage(self.last_duration_percent)
-        # self.last_duration_pb.canvas.place(x=297, y=65)
         self.unit_list.append([self.last_duration_title, self.last_duration_text, self.last_duration_pb])
-        # self.last_duration_text.place(x=self.duration_text.winfo_reqwidth() + 10, y=self.height // 2)
+        self.elem_list.append(self.last_duration_title)
+        self.elem_list.append(self.last_duration_text)
+        self.elem_list.append(self.last_duration_pb.progress_bar_bg.canvas)
+        self.elem_list.append(self.last_duration_pb.progress_bar_fg.canvas)
 
         self.count_title = tkinter.Label(self.container.canvas, text="Count", bg=self.bg, font=BOLD_FONT, fg="white")
         self.count_text = tkinter.Label(self.container.canvas, text=self.count, bg=self.bg, font=FONT, fg="white")
         self.unit_list.append([self.count_title, self.count_text])
-        # self.count_text.place(x=self.last_duration_text.winfo_reqwidth() + 10, y=self.height // 2)
+        self.elem_list.append(self.count_title)
+        self.elem_list.append(self.count_text)
 
         self.icon_label.place(x=10, y=25)
 
         item = 1
-        # print(self.unit_list)
         for unit in self.unit_list:
             y_to_place = 15
-
             if type(unit) == list:
                 for elem in unit:
                     # item = 1
@@ -137,11 +141,7 @@ class ProgramItem:
                     y_to_place += 25
             else:
                 unit.place(x=PROGRAM_ITEM_PLACEMENT[item], y=y_to_place)
-
             item += 1
-
-    def bind(self, event, method):
-        self.canvas.bind(event, method)
 
 
 # noinspection PyUnresolvedReferences
