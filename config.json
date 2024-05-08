@@ -14,5 +14,61 @@
     "duration": 1000,
     "last_duration": 250,
     "count": 2
+  },
+  {
+    "name": "Minecraft",
+    "path": "path/to/game.exe",
+    "icon_path": "icons/minecraft.png",
+    "duration": 1000,
+    "last_duration": 250,
+    "count": 2
+  },
+  {
+    "name": "Minecraft",
+    "path": "path/to/game.exe",
+    "icon_path": "icons/minecraft.png",
+    "duration": 1000,
+    "last_duration": 250,
+    "count": 2
+  },
+  {
+    "name": "Minecraft",
+    "path": "path/to/game.exe",
+    "icon_path": "icons/minecraft.png",
+    "duration": 1000,
+    "last_duration": 250,
+    "count": 2
+  },
+  {
+    "name": "Minecraft",
+    "path": "path/to/game.exe",
+    "icon_path": "icons/minecraft.png",
+    "duration": 1000,
+    "last_duration": 250,
+    "count": 2
+  },
+  {
+    "name": "Minecraft",
+    "path": "path/to/game.exe",
+    "icon_path": "icons/minecraft.png",
+    "duration": 1000,
+    "last_duration": 250,
+    "count": 2
+  },
+  {
+    "name": "Minecraft",
+    "path": "path/to/game.exe",
+    "icon_path": "icons/minecraft.png",
+    "duration": 1000,
+    "last_duration": 250,
+    "count": 2
+  },
+  {
+    "name": "Minecraft",
+    "path": "path/to/game.exe",
+    "icon_path": "icons/minecraft.png",
+    "duration": 1000,
+    "last_duration": 250,
+    "count": 2
   }
 ]

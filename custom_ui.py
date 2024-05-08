@@ -140,6 +140,9 @@ class ProgramItem:
 
             item += 1
 
+    def bind(self, event, method):
+        self.canvas.bind(event, method)
+
 
 # noinspection PyUnresolvedReferences
 class CardItem:
