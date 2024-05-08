@@ -114,7 +114,7 @@ class App:
         self.scrollbar.pack(side="right", fill="y")
         self.scrollbar.pack_forget()
 
-        self.grad = tk.Label(self.win, image=self.create_gradients(), borderwidth=0)
+        self.grad = tk.Label(self.win, image=self.create_gradients(), borderwidth=0, bg=BG)
         self.grad.place(x=20, y=20)
 
     # def create_entries(self):
